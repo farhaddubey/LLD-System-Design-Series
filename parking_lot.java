@@ -1,27 +1,26 @@
-// PARKING LOT 
-// ENUM, ABSTRACTION
-import java.util.*;
+import java.util.*; 
 
-enum VehicleType {
-    CAR, BIKE
+enum VehicleType{
+    CAR, BIKE 
 }
 
 class Vehicle{
     String number; 
-    VehicleType type; 
+    VehicleType type;  
     public Vehicle(String number, VehicleType type){
-        this.number = number; 
-        this.type = type; 
+        this.number=number; 
+        this.type=type; 
     }
 }
 
 class ParkingSpot{
     int id; 
-    VehicleType type;  // USER DEFINED ENUM 
+    VehicleType type; 
     Vehicle vehicle; 
+
     public ParkingSpot(int id, VehicleType type){
-        this.id= id; 
-        this.type = type; 
+        this.id=id; 
+        this.type=type; // We are using this Vehicle type to mark that this typr of vehicle can be placed in this spot 
     }
 
     public boolean isFree(){
@@ -49,12 +48,12 @@ class ParkingLot{
     }
 
     public void parkVehicle(Vehicle v){
-        for(ParkingSpot spot: spots){
+        for(ParkingSpot spot : spots){
             if(spot.park(v)){
-                System.out.println("Parked at spot"+ spot.id); 
+                System.out.println("Parked at spot"+spot.id); 
                 return; 
             }
         }
-        System.out.println("No spot available");
+        System.out.println("No spot available"); 
     }
 }

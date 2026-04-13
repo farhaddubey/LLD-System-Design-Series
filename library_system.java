@@ -1,59 +1,60 @@
 import java.util.*; 
+// Inheritance & Polymorphism 
+abstract class Item{
+    String title; 
+    String author; 
+    int year; 
 
-enum VehicleType{
-    CAR, BIKE 
+    public Item(String t, String a, int y){
+        this.title=t; 
+        this.author=a; 
+        this.year=y; 
+    }
+
+    abstract void display(); 
 }
 
-class Vehicle{
-    String number; 
-    VehicleType type;  
-    public Vehicle(String number, VehicleType type){
-        this.number=number; 
-        this.type=type; 
+// Book 
+class Book extends Item{
+    String genre; 
+    String isbn; 
+
+    public Book(String t, String a, int y, String g, String i){
+        super(t, a, y); 
+        genre=g; 
+        isbn=i; 
+    }
+
+    void display(){
+        System.out.println(title+ " by "+author+" ("+year+")"); 
     }
 }
 
-class ParkingSpot{
-    int id; 
-    VehicleType type; 
-    Vehicle vehicle; 
+// DVD 
+class DVD extends Item{
+    int duration; 
 
-    public ParkingSpot(int id, VehicleType type){
-        this.id=id; 
-        this.type=type; // We are using this Vehicle type to mark that this typr of vehicle can be placed in this spot 
+    public DVD(String t, String a, int y, int d){
+        super(t, a, y); 
+        this.duration=d; 
     }
 
-    public boolean isFree(){
-        return vehicle==null; 
+    void display(){
+        System.out.println(title+ " by "+author+" ("+year+") "); 
+        System.out.println("Duration: "+duration); 
+    }
+}
+
+class Library{
+    List<Item> items=new ArrayList<>(); 
+
+    public void addItem(Item item){
+        items.add(item); 
     }
 
-    public boolean park(Vehicle v){
-        if(isFree() && v.type==type){
-            vehicle=v; 
-            return true; 
+    public void showAll(){
+        for(Item item: items){
+            item.display();  
         }
-        return false; 
-    }
-
-    public void unpark(){
-        vehicle=null; 
-    }
-}
-
-class ParkingLot{
-    List<ParkingSpot> spots=new ArrayList<>(); 
-
-    public void addSpot(ParkingSpot spot){
-        spots.add(spot); 
-    }
-
-    public void parkVehicle(Vehicle v){
-        for(ParkingSpot spot : spots){
-            if(spot.park(v)){
-                System.out.println("Parked at spot"+spot.id); 
-                return; 
-            }
-        }
-        System.out.println("No spot available"); 
     }
 }
